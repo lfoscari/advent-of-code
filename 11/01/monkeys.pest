@@ -1,0 +1,20 @@
+sep = _{ " "* ~ NEWLINE ~ " "* }
+number = @{ ASCII_DIGIT+ }
+number_list = { number ~ (", " ~ number)* }
+op_sign = { "+" | "*" }
+operand = { number | "old" }
+
+monkeys = _{ monkey ~ (NEWLINE ~ monkey)* }
+monkey = { monkey_index ~ sep ~
+		starting_items ~ sep ~
+		operation ~ sep ~
+		test ~ sep ~
+		if_true ~ sep ~
+		if_false ~ NEWLINE? }
+
+monkey_index = { "Monkey " ~ number ~ ":" }
+starting_items = { "Starting items: " ~ number_list }
+operation = { "Operation: new = old " ~ op_sign ~ " " ~ operand }
+test = { "Test: divisible by " ~ number }
+if_true = { "If true: throw to monkey " ~ number }
+if_false = { "If false: throw to monkey " ~ number }
